@@ -1,0 +1,74 @@
+/* * ArrayBar.css - Styles for individual array elements in the visualizer.
+ * Note: The actual width of the bar should ideally be calculated and set 
+ * dynamically in the React component based on the total number of elements.
+ * A default 'min-width' is added here to ensure visibility.
+ */
+
+ .array-bar {
+  /* Layout: Use flex for flexible side-by-side display */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* Ensures content inside bar sticks to the bottom */
+
+  /* Base Style */
+  background-color: #4A90E2; /* Blue */
+  margin: 0 1px; /* Small gap between bars */
+  
+  /* CRITICAL FIX: Add a default width for visibility. 
+     This should ideally be overridden by an inline style (e.g., width: 2vw)
+     in the React component for true responsiveness. */
+  min-width: 4px; /* Default minimum width */
+  flex-grow: 1;   /* Allow the bar to grow if no width is set */
+
+  /* Animation Smoothness */
+  transition: height 0.3s ease-out, background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+
+  /* Positioning Context for the value label */
+  position: relative;
+}
+
+/* --- State Colors --- */
+
+.array-bar.highlighted {
+  /* Red for elements currently being compared */
+  background-color: #FF0054; 
+}
+
+.array-bar.swapped {
+  /* Yellow for elements that have just been moved/swapped */
+  background-color: #F8E71C; 
+}
+
+.array-bar.sorted {
+  /* Green for elements confirmed to be in their final, sorted position */
+  background-color: #38C172; 
+}
+
+.array-bar.pivot {
+  /* Purple for a pivot element in Quick Sort */
+  background-color: #A366FF; 
+}
+
+/* --- Value Label --- */
+
+.bar-value {
+  /* Position the number label above the bar */
+  position: absolute;
+  top: -22px; /* Moves the label above the bar's top edge */
+  left: 50%;
+  transform: translateX(-50%); /* Center the label horizontally */
+  
+  /* Styling */
+  color: #333; /* Darker text for better contrast on light backgrounds */
+  font-size: 10px;
+  font-weight: bold;
+  white-space: nowrap; /* Prevents the value from wrapping */
+  user-select: none;
+}
+
+/* If the background is dark (e.g., in dark mode) we might need light text */
+@media (prefers-color-scheme: dark) {
+  .bar-value {
+    color: #E0E0E0; /* Light text for better contrast */
+  }
+}
